@@ -47,6 +47,7 @@ namespace mongo {
 # define assert MONGO_assert
 #elif defined(BOOST_RWLOCK)
 # include <boost/thread/shared_mutex.hpp>
+# include "fair_shared_mutex.hpp"
 # undef assert
 # define assert MONGO_assert
 #endif
@@ -106,7 +107,7 @@ namespace mongo {
 
     // Boost based RWLock implementation
     class RWLock : boost::noncopyable {
-        shared_mutex _m;
+        fair_shared_mutex _m;
         const int _lowPriorityWaitMS;
     public:
         const char * const _name;
